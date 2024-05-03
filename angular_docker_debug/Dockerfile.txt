@@ -1,0 +1,26 @@
+# Use the official Node.js image as a base
+FROM node:latest as builder
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the entire Angular project to the container
+COPY . .
+
+# Install dependencies
+RUN npm install
+
+# Build the Angular project without optimizations for debugging
+RUN npm run build
+
+# Use nginx image for serving Angular app
+FROM nginx:latest
+
+# Copy the built Angular app from the previous stage to the nginx html directory
+COPY --from=builder /app/dist/<your-app-name> /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+# Start nginx when the container starts
+CMD ["nginx", "-g", "daemon off;"]
