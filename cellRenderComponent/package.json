@@ -1,5 +1,5 @@
 {
-  "name": "cii-demo-client",
+  "name": "cell-renderer-demo-client",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
